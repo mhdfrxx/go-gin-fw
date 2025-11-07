@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head><title>Hapus User</title></head>
+<body>
+<h2>Hapus User</h2>
+<p>Apakah kamu yakin ingin menghapus user: <b>{{.User.Username}}</b>?</p>
+<form method="POST" action="/users/delete/{{.User.ID}}">
+    <button type="submit">Ya, Hapus</button>
+    <a href="/users">Batal</a>
+</form>
+</body>
+</html>

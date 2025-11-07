@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><title>Edit User</title></head>
+<body>
+<h2>Edit User</h2>
+<a href="/users">← Kembali</a>
+<hr>
+
+{{if .Error}}<p style="color:red;">{{.Error}}</p>{{end}}
+
+<form method="POST" action="/users/edit/{{.User.ID}}">
+    <label>Username:</label><br>
+    <input type="text" name="username" value="{{.User.Username}}"><br><br>
+    <label>Password baru (kosongkan jika tidak diubah):</label><br>
+    <input type="password" name="password"><br><br>
+    <button type="submit">Simpan</button>
+</form>
+</body>
+</html>

@@ -7,11 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Routes() {
-
-	r := gin.Default()
-	r.LoadHTMLGlob("views/*")
-
+func SetupRoutes(r *gin.Engine) {
 	// Auth routes
 	r.GET("/login", service.ShowLogin)
 	r.POST("/login", service.Login)
@@ -20,8 +16,14 @@ func Routes() {
 	r.GET("/logout", service.Logout)
 
 	// Protected route
-	r.GET("/", middleware.AuthRequired(), service.Home)
-
-	r.Run(":8080")
+	auth := r.Group("/", middleware.AuthRequired())
+	{
+		auth.GET("/", service.Home)
+		auth.GET("/users", service.ListUsers)
+		auth.GET("/users/edit/:id", service.EditUserForm)
+		auth.POST("/users/edit/:id", service.EditUser)
+		auth.GET("/users/delete/:id", service.DeleteUserConfirm)
+		auth.POST("/users/delete/:id", service.DeleteUser)
+	}
 
 }
